@@ -1,10 +1,21 @@
-import { UserType } from 'src/user/user.interface';
-
 export interface MovieType {
   _id: string;
   name: string;
   description: string;
-  user: UserType;
+  cover: string;
+  adult: boolean;
+  backdrop_path: string;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: Date;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
 
 export interface MovieResponse {

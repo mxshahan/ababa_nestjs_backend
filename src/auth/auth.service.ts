@@ -4,10 +4,11 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { RegisterUserRequest } from 'src/user/user.dto';
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/user/user.schema';
+import { User, UserRole } from 'src/user/user.schema';
 
 export interface TokenPayload {
   userId: string;
+  role: UserRole;
 }
 
 @Injectable()
@@ -21,6 +22,7 @@ export class AuthService {
   async login(user: User, response: Response): Promise<void> {
     const tokenPayload: TokenPayload = {
       userId: user._id,
+      role: user.role,
     };
 
     const expires = new Date();
@@ -36,7 +38,15 @@ export class AuthService {
     });
   }
 
+  async logout(user: User, response: Response): Promise<void> {
+    response.clearCookie('Authorization', { httpOnly: true });
+  }
+
   async register(payload: RegisterUserRequest): Promise<User> {
     return this.userService.createUser(payload);
+  }
+
+  async registerAdmin(payload: RegisterUserRequest): Promise<User> {
+    return this.userService.createAdminUser(payload);
   }
 }

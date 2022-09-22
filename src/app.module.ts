@@ -7,6 +7,7 @@ import { MovieModule } from './movie/movie.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UtilModule } from './util/util.module';
+import { FavouriteModule } from './favourite/favourite.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { UtilModule } from './util/util.module';
     AuthModule,
     UserModule,
     UtilModule,
+    FavouriteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

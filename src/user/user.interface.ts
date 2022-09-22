@@ -1,7 +1,10 @@
+import { UserRole } from './user.schema';
+
 export interface UserType {
   _id?: string;
   email?: string;
   name?: string;
+  role: UserRole;
   createdAt?: Date;
   updatedAt?: Date;
 }

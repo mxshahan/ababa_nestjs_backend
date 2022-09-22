@@ -2,32 +2,42 @@ import { Injectable } from '@nestjs/common';
 
 export interface ListData {
   page?: number;
+  limit?: number;
   entries?: any[];
   total?: number;
 }
 
-export interface ListResponse {
+export interface ListResponseType {
   success: boolean;
-  page: number;
+  page?: number;
+  limit?: number;
+  total?: number;
   entries: any[];
-  total: number;
+}
+
+export interface SingleResponseType {
+  success: boolean;
+  entry: any;
+  message?: string;
 }
 
 @Injectable()
 export class UtilService {
-  public responseOne(data: any): { success: boolean; entry: any } {
+  public responseOne(data?: any, message?: string): SingleResponseType {
     return {
       success: true,
       entry: data,
+      message,
     };
   }
 
-  public responseMany(data: ListData): ListResponse {
+  public responseMany(data: ListData): ListResponseType {
     return {
       success: true,
       page: data.page,
-      entries: data.entries,
+      limit: data.limit,
       total: data.total,
+      entries: data.entries,
     };
   }
 }

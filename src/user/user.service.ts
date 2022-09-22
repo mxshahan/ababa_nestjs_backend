@@ -5,7 +5,8 @@ import { compareSync } from 'bcrypt';
 import { Model } from 'mongoose';
 
 import { RegisterUserRequest } from './user.dto';
-import { User } from './user.schema';
+import { UserType } from './user.interface';
+import { User, UserRole } from './user.schema';
 
 @Injectable()
 export class UserService {
@@ -18,7 +19,7 @@ export class UserService {
     return this.model.find();
   }
 
-  async findOne(query: any): Promise<User> {
+  async findOne(query: UserType): Promise<User> {
     return this.model.findOne(query);
   }
 
@@ -36,6 +37,21 @@ export class UserService {
 
   async create(payload: Partial<User>): Promise<User> {
     return this.model.create(payload);
+  }
+
+  async createAdminUser(payload: RegisterUserRequest): Promise<User> {
+    try {
+      let user = await this.findOne({ role: UserRole.admin });
+      if (user) {
+        throw new BadRequestException('Admin already exists');
+      }
+
+      user = await this.create({ ...payload, role: UserRole.admin });
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error.message, error);
+    }
   }
 
   async createUser(payload: RegisterUserRequest): Promise<User> {
