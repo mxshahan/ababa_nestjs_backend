@@ -57,6 +57,9 @@ JWT_SECRET=helloworld
 JWT_EXPIRES_IN=7 # in day
 ```
 
+## For further API Testing using Postman use the public postman collection
+[Postman Collection](https://documenter.getpostman.com/view/2527688/2s7ZE8oiHN#intro)
+
 ## Test
 
 ```bash
