@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 @Schema({ versionKey: false, timestamps: true })
 export class Movie extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   name: string;
 
   @Prop()

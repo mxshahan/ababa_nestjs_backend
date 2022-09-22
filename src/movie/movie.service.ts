@@ -164,11 +164,11 @@ export class MovieService {
 
   async importAll(payload: any): Promise<MovieResponse> {
     try {
-      const count = await this.model.countDocuments();
-      if (count > 0) {
-        throw new BadRequestException('Already exists movies');
-      }
-      await this.model.insertMany(payload);
+      // const count = await this.model.countDocuments();
+      // if (count > 0) {
+      //   throw new BadRequestException('Already exists movies');
+      // }
+      await this.model.insertMany(payload, { ordered: false });
       return this.utilService.responseOne();
     } catch (error) {
       throw new BadRequestException(error.message, error);
